@@ -1,0 +1,2 @@
+if (answer.equals("Heisenberg")) running = false;
+

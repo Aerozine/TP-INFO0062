@@ -18,5 +18,8 @@ public class BinomialCoefficients {
         // Test large value
         BigInteger large = pascal.binomial(100, 50);
         System.out.println("\nC(100,50) = " + large);
+        Pascal pascal2 = new Pascal();
+        System.out.println(pascal2.toString());
+        System.out.println(pascal.toString());
     }
 }

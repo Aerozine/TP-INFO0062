@@ -2,33 +2,23 @@ import java.math.BigInteger;
 import java.util.Vector;
 
 public class Pascal {
-  // we define EXTENSION_LIMIT to be the limit of the extension allowed
-  // If the user ask n= 24 and we have n= 20 it will extend the n up to 24
-  // if the user ask n=1000 the program will just simply compute the coeficient
+    // We define EXTENSION_LIMIT to be the limit of the extension allowed
+    // If the user asks n= 24 and we have n= 20, it will extend the n up to 24.
+    // If the user asks n=1000, the program will just compute the coefficient.
+    private static final int EXTENSION_LIMIT = 10; // Allowed gap
 
-    private static final int EXTENSION_LIMIT = 10; // allowed gap
-    // Actual structure of the triangle
-    // < 
-    // [ . ],
-    // [ . . ],
-    // [ . . . ]
-    // >
-    // (<> for vector and [] for array)
-    // Each line has known size so we can simply use array
-    // Due to the fact that we would like to add a line at the end 
-    // we cannot consider using array ( the cost to add a value is too high)
-    // Insead we can use resizable-Array like Vector
-    // And according to the documentation we can use .add and .get 
-    private Vector<BigInteger[]> triangle;
+    // Static field for the triangle (shared by all instances)
+    private static Vector<BigInteger[]> triangle;
 
     // Default constructor
-    // Init an empty triangle
+    // Initialize an empty triangle
     public Pascal() {
-        triangle = new Vector<>();
-
-        BigInteger[] firstRow = new BigInteger[1];
-        firstRow[0] = BigInteger.ONE;
-        triangle.add(firstRow);
+        if (triangle == null) {
+            triangle = new Vector<>();
+            BigInteger[] firstRow = new BigInteger[1];
+            firstRow[0] = BigInteger.ONE;
+            triangle.add(firstRow);
+        }
     }
 
     // Constructor with initial rows
@@ -39,11 +29,11 @@ public class Pascal {
         }
     }
 
-    // Returns binomial coefficient C(n,k)
+    // Returns binomial coefficient C(n, k)
     public BigInteger binomial(int n, int k) {
-        // eror of indices
+        // Error of indices
         if (n < 0 || k < 0 || k > n) {
-          return BigInteger.ZERO;
+            return BigInteger.ZERO;
         }
 
         int currentMaxRow = triangle.size() - 1;
@@ -61,18 +51,18 @@ public class Pascal {
             buildUpToRow(n);
             return triangle.get(n)[k];
         }
-        // Case 3: if too far , just compute it
+
+        // Case 3: if too far, just compute it
         return computeDirect(n, k);
     }
 
     // Builds rows up to n
-    private void buildUpToRow(int n) {
-       // to compute a value on the triangle we can use 
-       // X Y
-       //   Z 
-       //   Z= + X + Y
+    private static void buildUpToRow(int n) {
+        // To compute a value on the triangle we can use 
+        // X Y
+        //   Z 
+        // Z = X + Y
         for (int i = triangle.size(); i <= n; i++) {
-
             BigInteger[] previousRow = triangle.get(i - 1);
             BigInteger[] newRow = new BigInteger[i + 1];
 
@@ -87,10 +77,9 @@ public class Pascal {
         }
     }
 
-    //only used for larger value that cannot be compute easily
+    // Only used for larger values that cannot be computed easily
     private BigInteger computeDirect(int n, int k) {
-
-        // Use symmetry C(n,k) = C(n,n-k)
+        // Use symmetry C(n, k) = C(n, n - k)
         if (k > n - k) {
             k = n - k;
         }
@@ -106,7 +95,7 @@ public class Pascal {
         return result;
     }
 
-    // Displays first n rows
+    // Displays the first n rows
     public void display(int n) {
         if (n <= 0) return;
 
@@ -118,5 +107,13 @@ public class Pascal {
             }
             System.out.println();
         }
+    }
+
+    // Reset the triangle (if needed)
+    public static void resetTriangle() {
+        triangle = new Vector<>();
+        BigInteger[] firstRow = new BigInteger[1];
+        firstRow[0] = BigInteger.ONE;
+        triangle.add(firstRow);
     }
 }
