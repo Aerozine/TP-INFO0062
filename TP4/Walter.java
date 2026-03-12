@@ -11,7 +11,10 @@ public class Walter {
         while (running) {
             System.out.println("Say my name !");
             String answer = br.readLine();
-            if (answer == "Heisenberg") running = false;
+            if (answer.equals("Heisenberg"))
+            {
+              running = false;
+            }
          }
 
         System.out.println("You're goddamn right !");
