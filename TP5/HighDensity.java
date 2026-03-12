@@ -66,7 +66,7 @@ public class HighDensity {
 
                 }
 
-                else if(type == 2) {
+                else {
 
                     City city =
                         new City(parts[1], area, population, parts[4]);
@@ -89,7 +89,7 @@ public class HighDensity {
         return maxLocation;
     }
 
-    public static void main(String args[]) {
+    static void main(String[] args) {
 
         try {
 

@@ -1,6 +1,6 @@
 public class Country extends Location {
 
-    private int callingCode;
+    private final int callingCode;
 
     public Country(String name) {
         super(name);

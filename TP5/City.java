@@ -2,9 +2,9 @@ import java.util.HashMap;
 
 public class City extends Location {
 
-    private Country country;
+    private final Country country;
 
-    private static HashMap<String, Country> countries = new HashMap<>();
+    private static final HashMap<String, Country> countries = new HashMap<>();
 
     public City(String name, int area, int population, String countryName) {
 
